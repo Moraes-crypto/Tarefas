@@ -139,7 +139,7 @@ output#listaTarefas {
 
 /* Estado vazio com visual carimbo/alerta */
 output#listaTarefas:empty::before,
-output#listaTarefas:not(:has(div)) {
+output#listaTarefas:not(:has(li)) {
   content: "[!] Nenhuma tarefa no radar.";
   display: block;
   text-align: center;
@@ -153,7 +153,7 @@ output#listaTarefas:not(:has(div)) {
 }
 
 /* Cada item de tarefa no formato de bloco sólido */
-output#listaTarefas > div {
+output#listaTarefas > li {
   background-color: #e0f2fe; /* Azulzinho ciano retro */
   border: var(--border-thick);
   border-radius: 6px;
@@ -167,14 +167,14 @@ output#listaTarefas > div {
   transition: transform 0.1s ease;
 }
 
-output#listaTarefas > div:hover {
+output#listaTarefas > li:hover {
   transform: translate(-2px, -2px);
   box-shadow: 4px 4px 0px #000000;
   background-color: #bae6fd;
 }
 
 /* Botão Apagar estilo selo/alerta */
-output#listaTarefas > div > button {
+output#listaTarefas > li > a {
   background-color: var(--text-main);
   color: #ffffff;
   font-size: 0.8rem;
@@ -188,7 +188,7 @@ output#listaTarefas > div > button {
   flex-shrink: 0;
 }
 
-output#listaTarefas > div > button:hover {
+output#listaTarefas > li > a:hover {
   background-color: #ff5757;
   color: #000000;
 }
@@ -197,7 +197,7 @@ output#listaTarefas > div > button:hover {
    ACESSIBILIDADE E RESPONSIVIDADE
    ================================================================ */
 input:focus-visible,
-button:focus-visible {
+a:focus-visible {
   outline: 3px dashed var(--accent-purple);
   outline-offset: 4px;
 }
@@ -222,13 +222,13 @@ button:focus-visible {
     font-size: 1.1rem;
   }
 
-  output#listaTarefas > div {
+  output#listaTarefas > li {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
   }
 
-  output#listaTarefas > div > button {
+  output#listaTarefas > li > a {
     width: 100%;
     text-align: center;
   }

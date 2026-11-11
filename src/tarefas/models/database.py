@@ -7,9 +7,8 @@ from mysql.connector import Error
 
 
 class Database:
-    """
-    Classe que gerencia conexões e operações com um banco de dados MySQL.
-    """
+    """Classe que gerencia conexões e operações com um banco de dados MySQL."""
+
     def __init__(self):
         load_dotenv()
         self.host = getenv('DB_HOST')
@@ -18,27 +17,26 @@ class Database:
         self.database = getenv('DB_SCHEMA')
         self.connection = None
         self.cursor = None
-
+        
 
     def conectar(self) -> None:
         """Estabelece uma conexão com o banco de dados MySQL."""
 
         try:
             self.connection = mc.connect(
-                host = self.host,
+                host  =self.host,
                 database = self.database,
                 user = self.username,
-                password = self.password
+                password = self.password,
             )
 
             if self.connection.is_connected():
-                self.cursor = self.connection.cursor(dictionary = True)
+                self.cursor = self.connection.cursor(dictionary=True)
                 print("Conexão ao banco de dados realizada com sucesso!")
         except Error as e:
             print(f"Erro de conexão: {e}")
             self.connection = None
-            self.cursor = None        
-
+            self.cursor = None
 
     def desconectar(self) -> None:
         """Encerra a conexão com banco de dados e o cursor, se existirem."""
@@ -48,7 +46,6 @@ class Database:
         if self.connection:
             self.connection.close()
         print("Conexão encerrada com sucesso")
-
 
     def executar(self, sql, params = None):
         """Executa uma instrução do banco de dados."""
@@ -70,33 +67,36 @@ class Database:
             print(f"Erro de execução: {e}")
             return
 
-    # Método de entrada no contexto (para uso com `with`)
     def __enter__(self):
         self.conectar()
         return self
-    # Método de saída de contexto (para o uso com `with`)
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.desconectar()
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SQL_PATH = BASE_DIR / "data" / "tarefas.sql"
 
 
-def init_db(sql_filepath='SQL_PATH'):
-    """Função responsável por inicializar o schema (database) no banco de dados."""
+def init_db(sql_filepath=None):
+    """Inicializa o schema e as tabelas do banco de dados."""
+
+    if sql_filepath is None:
+        sql_filepath = SQL_PATH
 
     load_dotenv()
 
     try:
         conexao = mc.connect(
-            host = getenv('DB_HOST'),
-            user = getenv('DB_USER'),
-            password = getenv('DB_PASSWORD')
+            host=getenv('DB_HOST'),
+            user=getenv('DB_USER'),
+            password=getenv('DB_PASSWORD'),
         )
+
         cursor = conexao.cursor()
 
-        #Leitura do arquivo de criação do banco
-        with open(sql_filepath, 'r', encoding = 'utf-8') as arquivo:
+        with open(sql_filepath, 'r', encoding='utf-8') as arquivo:
             sql = arquivo.read()
 
         cursor.execute(sql)
@@ -109,11 +109,4 @@ def init_db(sql_filepath='SQL_PATH'):
     except Error as e:
         print(f'Erro no banco de dados: {e}')
     except FileNotFoundError:
-        print('O arquivo especifico não pôde ser encontrado')
-
-
-# Área de teste
-db = Database()
-db.conectar()
-print(db.executar("select * from perfis;"))
-db.desconectar()
+        print('O arquivo especificado não pôde ser encontrado')
