@@ -24,7 +24,7 @@ def home():
         # Instanciamos uma nova tarefa com os daos recebisdos do form
         tarefa = Tarefa(titulo = titulo_form, data_conclusao = data_corrigida)
         
-        # Salvamos a tarefa no banco
+        # Salvar a tarefa no banco
         tarefa.salvarTarefa()
 
         return redirect(url_for("home"))
