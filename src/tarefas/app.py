@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, abort, redirect, render_template, request, url_for
 
 from tarefas.models.database import init_db
 from tarefas.models.tarefa import Tarefa
@@ -34,8 +34,35 @@ def home():
     return render_template(
         "base.html",
         titulo_da_pagina = "Minha lista de tarefas", 
-        tarefas_da_pagina = tarefas
+        tarefas_da_pagina = tarefas,
+        tarefa_em_edicao = None,
         )
+
+# edição das tarefas
+@app.route('/editar/<int:id>', methods=["GET", "POST"])
+def editar_tarefa(id):
+    if request.method == "POST":
+        titulo_form = request.form["tituloTarefa"]
+        data_conclusao_form = request.form["dataConclusao"] or None
+
+        tarefa = Tarefa(
+            id=id,
+            titulo=titulo_form,
+            data_conclusao=data_conclusao_form,
+        )
+        tarefa.alterarTarefa()
+        return redirect(url_for("home"))
+
+    tarefa = Tarefa.carregarTarefa(id)
+    if tarefa is None:
+        abort(404)
+
+    return render_template(
+        "base.html",
+        titulo_da_pagina="Minha lista de tarefas",
+        tarefas_da_pagina=Tarefa.listarTarefas(),
+        tarefa_em_edicao=tarefa,
+    )
 
 @app.route('/apagar/<int:id>', methods=["POST"])
 def apagar_id_especificado(id):
