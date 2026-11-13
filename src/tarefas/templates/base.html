@@ -10,6 +10,7 @@
 <body>
     <h1>Digite a tarefa e a data de conclusão:</h1>
 
+    <!-- Formulário para adicionar ou editar uma tarefa -->
      <form method="POST" action="{{ url_for('editar_tarefa', id=tarefa_em_edicao.id) if tarefa_em_edicao else url_for('home') }}">
         <input type="text" id="tituloTarefa" name="tituloTarefa" value="{{ tarefa_em_edicao.titulo if tarefa_em_edicao else '' }}">
         <input type="date" id="dataConclusao" name="dataConclusao" value="{{ tarefa_em_edicao.data_conclusao.strftime('%Y-%m-%d') if tarefa_em_edicao and tarefa_em_edicao.data_conclusao else '' }}">

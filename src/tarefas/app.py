@@ -38,7 +38,7 @@ def home():
         tarefa_em_edicao = None,
         )
 
-# edição das tarefas
+# função de edição das tarefas
 @app.route('/editar/<int:id>', methods=["GET", "POST"])
 def editar_tarefa(id):
     if request.method == "POST":
