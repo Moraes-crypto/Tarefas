@@ -21,7 +21,9 @@
         {% for tarefa in tarefas_da_pagina %}
         <li>
             {{ tarefa.titulo_tarefa }} - {{ tarefa.data_conclusao }}
-            <a href="{{ url_for('apagar_id_especificado', id=tarefa.id_tarefa) }}">Apagar</a> <!-- Link para a rota de apagar este ID -->
+            <form method="POST" action="{{ url_for('apagar_id_especificado', id=tarefa.id_tarefa) }}">
+                <button type="submit">Apagar</button>
+            </form>
         </li>
         {% endfor %}
     </ul>

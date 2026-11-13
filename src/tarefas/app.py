@@ -37,9 +37,10 @@ def home():
         tarefas_da_pagina = tarefas
         )
 
-@app.route('/apagar/<int:id>')
-def apagar_id_especificado(id): # Crie uma nova funcionalidade para apagar cada uma das tarefas cadastradas
-    pass
+@app.route('/apagar/<int:id>', methods=["POST"])
+def apagar_id_especificado(id):
+    Tarefa.apagarTarefa(id)
+    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.run()

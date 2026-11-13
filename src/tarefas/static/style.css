@@ -174,13 +174,13 @@ output#listaTarefas > li:hover {
 }
 
 /* Botão Apagar estilo selo/alerta */
-output#listaTarefas > li > a {
+ul#listaTarefas > li > form > button {
   background-color: var(--text-main);
   color: #ffffff;
   font-size: 0.8rem;
   font-weight: 900;
   text-transform: uppercase;
-  padding: 8px 12px;
+  padding: 2px 3px;
   border: 2px solid #000000;
   border-radius: 4px;
   cursor: pointer;
@@ -188,7 +188,7 @@ output#listaTarefas > li > a {
   flex-shrink: 0;
 }
 
-output#listaTarefas > li > a:hover {
+ul#listaTarefas > li > form > button:hover {
   background-color: #ff5757;
   color: #000000;
 }
@@ -197,7 +197,8 @@ output#listaTarefas > li > a:hover {
    ACESSIBILIDADE E RESPONSIVIDADE
    ================================================================ */
 input:focus-visible,
-a:focus-visible {
+a:focus-visible,
+button:focus-visible {
   outline: 3px dashed var(--accent-purple);
   outline-offset: 4px;
 }
@@ -228,7 +229,7 @@ a:focus-visible {
     gap: 10px;
   }
 
-  output#listaTarefas > li > a {
+  ul#listaTarefas > li > form > button {
     width: 100%;
     text-align: center;
   }

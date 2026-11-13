@@ -43,7 +43,10 @@ class Tarefa:
 
     @staticmethod
     def apagarTarefa(id):
-        pass
+        sql = 'DELETE FROM tarefa WHERE id_tarefa = %s;'
+
+        with Database() as db:
+            db.executar(sql, (id,))
 
 # Área de testes
 tarefa = Tarefa("Estudar Python")
