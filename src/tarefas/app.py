@@ -38,13 +38,15 @@ def home():
         tarefa_em_edicao = None,
         )
 
-# função de edição das tarefas
+
+# GET carrega a tarefa no formulário; POST recebe e salva os novos valores.
 @app.route('/editar/<int:id>', methods=["GET", "POST"])
 def editar_tarefa(id):
     if request.method == "POST":
         titulo_form = request.form["tituloTarefa"]
         data_conclusao_form = request.form["dataConclusao"] or None
 
+        # Mantém o ID da URL para alterar somente a tarefa selecionada.
         tarefa = Tarefa(
             id=id,
             titulo=titulo_form,
@@ -55,6 +57,7 @@ def editar_tarefa(id):
 
     tarefa = Tarefa.carregarTarefa(id)
     if tarefa is None:
+        # Uma tarefa inexistente não pode ser carregada para edição.
         abort(404)
 
     return render_template(

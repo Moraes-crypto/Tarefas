@@ -10,10 +10,11 @@
 <body>
     <h1>Digite a tarefa e a data de conclusão:</h1>
 
-    <!-- Formulário para adicionar ou editar uma tarefa -->
+     {# Em edição, envia os valores para a rota da tarefa; senão, cria uma nova. #}
      <form method="POST" action="{{ url_for('editar_tarefa', id=tarefa_em_edicao.id) if tarefa_em_edicao else url_for('home') }}">
         <input type="text" id="tituloTarefa" name="tituloTarefa" value="{{ tarefa_em_edicao.titulo if tarefa_em_edicao else '' }}">
         <input type="date" id="dataConclusao" name="dataConclusao" value="{{ tarefa_em_edicao.data_conclusao.strftime('%Y-%m-%d') if tarefa_em_edicao and tarefa_em_edicao.data_conclusao else '' }}">
+        {# O texto muda para Atualizar quando há uma tarefa carregada para edição. #}
         <button type="submit" class="botao-salvar">{{ "Atualizar" if tarefa_em_edicao else "Adicionar" }}</button>
     </form>
     <!-- <output id="listaTarefas">Nenhuma tarefa cadastrada</output> -->
@@ -23,6 +24,7 @@
         <li>
             <span class="descricao-tarefa">{{ tarefa.titulo_tarefa }} - {{ tarefa.data_conclusao }}</span>
             <div class="acoes-tarefa">
+                {# Abre o formulário preenchido com os dados desta tarefa. #}
                 <a class="botao-editar" href="{{ url_for('editar_tarefa', id=tarefa.id_tarefa) }}">Editar</a>
                 {# Envia o ID desta tarefa à rota de exclusão usando POST. #}
                 <form method="POST" action="{{ url_for('apagar_id_especificado', id=tarefa.id_tarefa) }}">

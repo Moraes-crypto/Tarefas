@@ -45,6 +45,7 @@ class Tarefa:
     def carregarTarefa(id):
         """Carrega uma tarefa do banco e retorna uma instância do modelo."""
 
+        # Busca apenas a tarefa correspondente ao ID recebido.
         sql = '''SELECT id_tarefa, titulo_tarefa, data_conclusao
         FROM tarefa
         WHERE id_tarefa = %s;'''
@@ -69,7 +70,8 @@ class Tarefa:
         sql = '''UPDATE tarefa
         SET titulo_tarefa = %s, data_conclusao = %s
         WHERE id_tarefa = %s;'''
-        # O ID restringe a alteração a esta tarefa.
+
+        # O ID no WHERE limita a atualização à instância selecionada.
         params = (self.titulo, self.data_conclusao, self.id)
 
         with Database() as db:

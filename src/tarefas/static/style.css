@@ -226,6 +226,7 @@ ul#listaTarefas > li > .acoes-tarefa > form > button:hover {
   color: #000000;
 }
 
+/* Estilo do link que carrega a tarefa selecionada para edição. */
 a.botao-editar {
   display: inline-block;
   background-color: var(--accent-purple);
