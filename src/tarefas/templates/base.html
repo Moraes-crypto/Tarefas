@@ -21,11 +21,14 @@
     <ul id = "listaTarefas">
         {% for tarefa in tarefas_da_pagina %}
         <li>
-            {{ tarefa.titulo_tarefa }} - {{ tarefa.data_conclusao }}
-            <a class="botao-editar" href="{{ url_for('editar_tarefa', id=tarefa.id_tarefa) }}">Editar</a>
-            <form method="POST" action="{{ url_for('apagar_id_especificado', id=tarefa.id_tarefa) }}">
-                <button type="submit">Apagar</button>
-            </form>
+            <span class="descricao-tarefa">{{ tarefa.titulo_tarefa }} - {{ tarefa.data_conclusao }}</span>
+            <div class="acoes-tarefa">
+                <a class="botao-editar" href="{{ url_for('editar_tarefa', id=tarefa.id_tarefa) }}">Editar</a>
+                {# Envia o ID desta tarefa à rota de exclusão usando POST. #}
+                <form method="POST" action="{{ url_for('apagar_id_especificado', id=tarefa.id_tarefa) }}">
+                    <button type="submit">Apagar</button>
+                </form>
+            </div>
         </li>
         {% endfor %}
     </ul>

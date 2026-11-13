@@ -64,8 +64,10 @@ def editar_tarefa(id):
         tarefa_em_edicao=tarefa,
     )
 
+# A exclusão só acontece por POST, enviado pelo formulário de cada tarefa.
 @app.route('/apagar/<int:id>', methods=["POST"])
 def apagar_id_especificado(id):
+    # Encaminha o ID recebido ao modelo e retorna para a lista.
     Tarefa.apagarTarefa(id)
     return redirect(url_for("home"))
 

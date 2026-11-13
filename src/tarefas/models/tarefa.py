@@ -33,6 +33,7 @@ class Tarefa:
         titulo_tarefa, 
         data_conclusao 
         FROM tarefa 
+        ORDER BY data_conclusao IS NULL ASC, data_conclusao ASC, id_tarefa ASC
         LIMIT 100;'''
 
         with Database() as db:
@@ -76,6 +77,8 @@ class Tarefa:
 
     @staticmethod
     def apagarTarefa(id):
+        """Remove do banco a tarefa identificada pelo ID."""
+
         sql = 'DELETE FROM tarefa WHERE id_tarefa = %s;'
 
         # O ID é enviado como parâmetro, sem concatená-lo ao SQL.
